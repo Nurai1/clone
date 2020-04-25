@@ -14,16 +14,3 @@ li{
 .error{
   border: 1px solid red;
 }
-.todo__label, .filter__label{
-  display: block;
-  margin: 0 auto;
-}
-
-.filter__input, .todo__input{
-  display: block;
-  margin: 0 auto;
-}
-
-.button, input[type="submit"]{
-  margin: 10px auto auto;
-}

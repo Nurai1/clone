@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 
 export const TodoInput = ({
-  todos,
-  dispatch
+  onSubmit
 }) => {
   let todoText = '';
   let todoDate = '';
@@ -17,23 +16,29 @@ export const TodoInput = ({
     }
     todoDate.classList.remove("error");
     todoText.classList.remove("error");
-    dispatch(actions.addToDo(todoText.value, todoDate.value));
-  };
+    onSubmit(todoText.value, todoDate.value);
+  }
 
   return (
-    <form className="todo__form" onSubmit={addTodo}>
+    <form className="todo__input" onSubmit={addTodo} >
       <h2>ToDo App</h2>
-      <label className="todo__text" htmlFor="">
+      <label htmlFor="">
         Введите текст задания:
-        <input className="todo__input" ref={(input)=>{todoText=input}} type="text"/>
+        <input ref={(input)=>{todoText=input}} type="text"/>
       </label>
-      <label className="todo__text" htmlFor="">
+      <label htmlFor="">
         Введите дату:
-        <input className="todo__input" ref={(input)=>{todoDate=input}} type="date"/>
+        <input ref={(input)=>{todoDate=input}} type="date"/>
       </label>
-      <input className="todo__submit" type="submit" value="Добавить" />
+      <input type="submit" value="Добавить" />
     </form>
   );
 }
 
-export default connect()(TodoInput);
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (text, date) => {
+    dispatch(actions.addToDo(text, date));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(TodoInput);

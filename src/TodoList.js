@@ -7,9 +7,11 @@ export const TodoList = ({
   reducer,
   todos,
   sortingDetails,
-  dispatch
+  onRadioBtnClick,
+  onCheckboxClick,
+  onCheckboxOfCompleteStateClick,
+  onDeleteBtnClick
 }) => {
-  let storeFromLocalStore = JSON.parse(localStorage.getItem("reducer"));
 
   useEffect(() => {
       localStorage.setItem("reducer", JSON.stringify(reducer));
@@ -42,7 +44,7 @@ export const TodoList = ({
         checked={sortingDetails.item==="text"}
         onChange={()=>{}}
         onClick={()=>{
-          dispatch(actions.changeSortItem("text"));
+          onRadioBtnClick("text");
         }}
       />
     </label>
@@ -52,7 +54,7 @@ export const TodoList = ({
         checked={sortingDetails.item==="date"}
         onChange={()=>{}}
         onClick={()=>{
-          dispatch(actions.changeSortItem("date"));
+          onRadioBtnClick("date");
         }}
       />
     </label>
@@ -60,9 +62,7 @@ export const TodoList = ({
       Изменить направление:
       <input type="checkbox"
         checked={sortingDetails.fromTop}
-        onChange={()=>{
-          dispatch(actions.toggleSortOrder());
-        }}
+        onChange={onCheckboxClick}
       />
     </label>
     <ul>
@@ -71,9 +71,9 @@ export const TodoList = ({
           let toDoId= todo.id;
           return (todo.filterText && todo.filterDate)?
             <li key={todo.id} >
-              <input type="checkbox" onClick={()=>{dispatch(actions.toggleCompleteState(toDoId))}} />
+              <input type="checkbox" onClick={()=>{onCheckboxOfCompleteStateClick(toDoId)}} />
               Текст: {todo.text.toString()} Дата: {todo.date.toString()}
-              <input onClick={()=>{dispatch(actions.deleteToDo(toDoId))}} type="button" value="Удалить" />
+              <input onClick={()=>{onDeleteBtnClick(toDoId)}} type="button" value="Удалить" />
             </li>:""
         })
       }
@@ -88,8 +88,24 @@ const mapStateToProps = (state) => ({
   sortingDetails: state.sortingDetails
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onRadioBtnClick: (item) => {
+    dispatch(actions.changeSortItem(item));
+  },
+  onCheckboxOfDirectionClick: () => {
+    dispatch(actions.toggleSortOrder());
+  },
+  onCheckboxOfCompleteStateClick: (id) => {
+    dispatch(actions.toggleCompleteState(id))
+  },
+  onDeleteBtnClick: (id) => {
+    dispatch(actions.deleteToDo(id));
+  }
+});
+
 const TodoListContainer = connect(
   mapStateToProps,
+  mapDispatchToProps
 )(TodoList);
 
 export default TodoListContainer;
