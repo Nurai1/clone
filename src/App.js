@@ -4,14 +4,16 @@ import { Provider } from 'react-redux';
 import TodoInput from './TodoInput';
 import FilterInput from './FilterInput';
 import TodoList from './TodoList';
-import './styles/App.css';
 
 function App({ store }) {
   return (
     <Provider store={store}>
-      <div className="App">
-        <TodoInput />
-        <FilterInput />
+      <div className="app">
+        <h1>Todo App</h1>
+        <div className="clearfix">
+          <TodoInput />
+          <FilterInput />
+        </div>
         <TodoList />
       </div>
     </Provider>

@@ -1,33 +1,45 @@
 // ACTION CREATORS
 
-export function addToDo(text, date) {
+export const addCurrentText = function(value) {
+  return { type: "ADD_CURRENT_TEXT", value };
+}
+
+export const addCurrentDate = function(value) {
+  return { type: "ADD_CURRENT_DATE", value };
+}
+
+export const addToDo = function(text, date) {
   return { type: "ADD_TODO", text, date };
 }
 
-export function filterFromText(text) {
-  return { type: "FILTER__TEXT", text };
+export const setVisibilityFilterFromText = function(text) {
+  return { type: "FILTER_TEXT", text };
 }
 
-export function filterFromDate(date) {
-  return { type: "FILTER__DATE", date };
+export const setVisibilityFilterFromDate = function(date) {
+  return { type: "FILTER_DATE", date };
 }
 
-export function clearFilters() {
-  return { type: "CLEAR__FILTERS" };
+export const clearVisibilityFilters = function() {
+  return { type: "CLEAR_FILTERS" };
 }
 
-export function toggleCompleteState(id) {
-  return { type: "TOGGLE__COMPLETE", id };
+export const toggleCompleteState = function(id) {
+  return { type: "TOGGLE_COMPLETE", id };
 }
 
-export function deleteToDo(id) {
-  return { type: "DELETE__TODO", id }
+export const deleteToDo = function(id) {
+  return { type: "DELETE_TODO", id }
 }
 
-export function changeSortItem(item) {
-  return { type: "CHANGE__SORT_ITEM", item }
+export const changeSortItem = function(item) {
+  return { type: "CHANGE_SORT_ITEM", item }
 }
 
-export function toggleSortOrder() {
-  return { type: "TOGGLE__SORT_ORDER" }
+export const toggleSortOrder = function() {
+  return { type: "TOGGLE_SORT_ORDER" }
+}
+
+export const setInputErrorState = function(value) {
+  return {type: "SET_INPUT_ERROR_STATE", value}
 }

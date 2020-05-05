@@ -1,22 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from './actions';
+import { changeSortItem, toggleSortOrder, toggleCompleteState, deleteToDo } from './actions';
 
 export const TodoList = ({
-  reducer,
   todos,
   sortingDetails,
-  onRadioBtnClick,
-  onCheckboxClick,
-  onCheckboxOfCompleteStateClick,
-  onDeleteBtnClick
+  visibilityFilters,
+  changeSortItem,
+  toggleSortOrder,
+  toggleCompleteState,
+  deleteToDo
 }) => {
 
-  useEffect(() => {
-      localStorage.setItem("reducer", JSON.stringify(reducer));
-  });
-
+  let currentTodos = [...todos];
   const initiliazeSortFunc = function(sortItem) {
     if (sortingDetails.fromTop){
       return function(a,b){
@@ -35,46 +32,51 @@ export const TodoList = ({
         };
     }
   }
+
+  const sortingDetailsHandler = function(item) {
+    if (item === sortingDetails.item){
+      toggleSortOrder();
+    }
+    changeSortItem(item);
+  }
+
   return (
     <div>
-    <h3>Сортировка:</h3>
-    <label htmlFor="">
-      По тексту:
-      <input type="radio" name="sortFunc"
-        checked={sortingDetails.item==="text"}
-        onChange={()=>{}}
+    <h3>Todo List</h3>
+      <input type="button" name="sortFunc"
+        value="Сортировка по тексту"
         onClick={()=>{
-          onRadioBtnClick("text");
+          sortingDetailsHandler("text");
         }}
       />
-    </label>
-    <label htmlFor="">
-      По дате:
-      <input type="radio" name="sortFunc"
-        checked={sortingDetails.item==="date"}
-        onChange={()=>{}}
+      <input type="button" name="sortFunc"
+        value="Сортировка по дате"
         onClick={()=>{
-          onRadioBtnClick("date");
+          sortingDetailsHandler("date");
         }}
       />
-    </label>
-    <label htmlFor="">
-      Изменить направление:
-      <input type="checkbox"
-        checked={sortingDetails.fromTop}
-        onChange={onCheckboxClick}
+      <input type="button" name="sortFunc"
+        value="Сброс сортировки"
+        onClick={()=>{
+          sortingDetailsHandler("");
+        }}
       />
-    </label>
     <ul>
       {
-        todos.sort(initiliazeSortFunc(sortingDetails.item)).map((todo)=>{
+        currentTodos.sort(initiliazeSortFunc(sortingDetails.item)).map((todo)=>{
           let toDoId= todo.id;
-          return (todo.filterText && todo.filterDate)?
+          return (todo.text.includes(visibilityFilters.text) && todo.date.includes(visibilityFilters.date))?
             <li key={todo.id} >
-              <input type="checkbox" onClick={()=>{onCheckboxOfCompleteStateClick(toDoId)}} />
-              Текст: {todo.text.toString()} Дата: {todo.date.toString()}
-              <input onClick={()=>{onDeleteBtnClick(toDoId)}} type="button" value="Удалить" />
-            </li>:""
+              <input type="checkbox"
+              onChange={()=>{toggleCompleteState(toDoId)}}
+              checked={todo.completed?"checked":""}
+            />
+              <span className={todo.completed?"task task_completed":"task"}>
+                Текст: {todo.text.toString()} Дата: {todo.date.toString()}
+              </span>
+              <input onClick={()=>{deleteToDo(toDoId)}} type="button" value="Удалить" />
+            </li>
+            :null
         })
       }
     </ul>
@@ -83,24 +85,16 @@ export const TodoList = ({
 }
 
 const mapStateToProps = (state) => ({
-  reducer: state,
   todos: state.todos,
-  sortingDetails: state.sortingDetails
+  sortingDetails: state.sortingDetails,
+  visibilityFilters: state.visibilityFilters
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onRadioBtnClick: (item) => {
-    dispatch(actions.changeSortItem(item));
-  },
-  onCheckboxOfDirectionClick: () => {
-    dispatch(actions.toggleSortOrder());
-  },
-  onCheckboxOfCompleteStateClick: (id) => {
-    dispatch(actions.toggleCompleteState(id))
-  },
-  onDeleteBtnClick: (id) => {
-    dispatch(actions.deleteToDo(id));
-  }
+  changeSortItem: (item) => dispatch(changeSortItem(item)),
+  toggleSortOrder: () => dispatch(toggleSortOrder()),
+  toggleCompleteState: (id) => dispatch(toggleCompleteState(id)),
+  deleteToDo: (id) => dispatch(deleteToDo(id))
 });
 
 const TodoListContainer = connect(

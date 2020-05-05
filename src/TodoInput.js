@@ -1,44 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from './actions';
+import {
+  addCurrentDate,
+  addCurrentText,
+  addToDo,
+  setInputErrorState
+} from './actions';
 
 export const TodoInput = ({
-  onSubmit
+  todoCurrentValues,
+  inputErrorState,
+  addCurrentText,
+  addCurrentDate,
+  addNewTodo,
+  setInputErrorState
 }) => {
-  let todoText = '';
-  let todoDate = '';
   const addTodo = (e) => {
     e.preventDefault();
-    if (!todoText.value || !todoDate.value){
-      todoText.value?(todoDate.classList.add("error")):(todoText.classList.add("error"))
+    if (!todoCurrentValues.date || !todoCurrentValues.text){
+      setInputErrorState(true);
       return;
     }
-    todoDate.classList.remove("error");
-    todoText.classList.remove("error");
-    onSubmit(todoText.value, todoDate.value);
+
+    addNewTodo(todoCurrentValues.text, todoCurrentValues.date);
+    setInputErrorState(false);
   }
 
   return (
-    <form className="todo__input" onSubmit={addTodo} >
-      <h2>ToDo App</h2>
-      <label htmlFor="">
+    <form className="addForm" onSubmit={addTodo} >
+      <h3>Добавьте задание</h3>
+      <label className="addForm__text" htmlFor="">
         Введите текст задания:
-        <input ref={(input)=>{todoText=input}} type="text"/>
+        <input className={(!todoCurrentValues.text && inputErrorState.value)?"error":""}
+          onChange={(e)=>addCurrentText(e.target.value)} type="text"
+        />
       </label>
-      <label htmlFor="">
+      <label className="addForm__date" htmlFor="">
         Введите дату:
-        <input ref={(input)=>{todoDate=input}} type="date"/>
+        <input className={(!todoCurrentValues.date && inputErrorState.value)?"error":""}
+          onChange={(e)=>addCurrentDate(e.target.value)} type="date"
+        />
       </label>
       <input type="submit" value="Добавить" />
     </form>
   );
 }
 
+const mapStateToProps = (state) => ({
+  todoCurrentValues: state.todoCurrentValues,
+  inputErrorState: state.inputErrorState
+})
+
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (text, date) => {
-    dispatch(actions.addToDo(text, date));
-  }
+  addCurrentText: (value) => dispatch(addCurrentText(value)),
+  addCurrentDate: (value) => dispatch(addCurrentDate(value)),
+  addNewTodo: (text, date) => dispatch(addToDo(text, date)),
+  setInputErrorState: (value) => dispatch(setInputErrorState(value))
 });
 
-export default connect(null, mapDispatchToProps)(TodoInput);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoInput);
