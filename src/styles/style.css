@@ -1,0 +1,55 @@
+.app {
+  width: 960px;
+  margin: 0 auto;
+  background: #eee;
+  padding: 15px;
+  text-align: center;
+}
+
+h1{
+  text-align: center;
+}
+
+h3{
+  margin-bottom: 10px;
+}
+
+form{
+  margin: 15px 0;
+}
+
+.addForm{
+  float: left;
+  width: 50%;
+}
+
+.filterForm{
+  float: right;
+  width: 50%;
+}
+
+label{
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="text"], input[type="date"]{
+  display: block;
+  padding: 10px 5px;
+  margin: 5px auto 0;
+}
+
+input[type="button"], input[type="submit"]{
+  background: #ccc;
+  color: #555;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover{
+  background: #aaa;
+}
+
+.task{
+  padding: 0 10px;
+}

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo Input Component Unconnected Todo Input Component capturing snapshot of component 1`] = `
+<form
+  className="addForm"
+  onSubmit={[Function]}
+>
+  <h3>
+    Добавьте задание
+  </h3>
+  <label
+    className="addForm__text"
+    htmlFor=""
+  >
+    Введите текст задания:
+    <input
+      className=""
+      onChange={[Function]}
+      type="text"
+    />
+  </label>
+  <label
+    className="addForm__date"
+    htmlFor=""
+  >
+    Введите дату:
+    <input
+      className=""
+      onChange={[Function]}
+      type="date"
+    />
+  </label>
+  <input
+    type="submit"
+    value="Добавить"
+  />
+</form>
+`;
+
+exports[`Todo Input Component capturing snapshot of component 1`] = `
+<form
+  className="addForm"
+  onSubmit={[Function]}
+>
+  <h3>
+    Добавьте задание
+  </h3>
+  <label
+    className="addForm__text"
+    htmlFor=""
+  >
+    Введите текст задания:
+    <input
+      className=""
+      onChange={[Function]}
+      type="text"
+    />
+  </label>
+  <label
+    className="addForm__date"
+    htmlFor=""
+  >
+    Введите дату:
+    <input
+      className=""
+      onChange={[Function]}
+      type="date"
+    />
+  </label>
+  <input
+    type="submit"
+    value="Добавить"
+  />
+</form>
+`;
