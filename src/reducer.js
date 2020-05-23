@@ -14,7 +14,7 @@ if(storeFromLocalStore){
 }
 const idCounter = makeIdCounter(maxId+1);
 
-const todos = function(state=defaultTodos, action) {
+export const todos = function(state=defaultTodos, action) {
   switch(action.type){
     case "ADD_TODO":
       return [
@@ -42,7 +42,7 @@ const todos = function(state=defaultTodos, action) {
   }
 }
 
-const todoCurrentValues = function(state={}, action) {
+export const todoCurrentValues = function(state={text: "", date: ""}, action) {
   switch(action.type){
     case "ADD_CURRENT_TEXT":
       return {
@@ -60,7 +60,7 @@ const todoCurrentValues = function(state={}, action) {
   }
 }
 
-const visibilityFilters = function(state={text: "", date: ""}, action) {
+export const visibilityFilters = function(state={text: "", date: ""}, action) {
   switch(action.type) {
     case "FILTER_TEXT":
       return {
@@ -82,7 +82,7 @@ const visibilityFilters = function(state={text: "", date: ""}, action) {
   }
 }
 
-const sortingDetails = function(state={item:"", fromTop: false}, action) {
+export const sortingDetails = function(state={item:"", fromTop: false}, action) {
   switch(action.type) {
     case "CHANGE_SORT_ITEM":
       return {
@@ -99,12 +99,10 @@ const sortingDetails = function(state={item:"", fromTop: false}, action) {
   }
 }
 
-const inputErrorState = function(state={value: false}, action) {
+export const inputErrorState = function(state=false, action) {
   switch(action.type) {
     case "SET_INPUT_ERROR_STATE":
-      return {
-        value: action.value
-      }
+      return action.value;
     default:
       return state;
   }

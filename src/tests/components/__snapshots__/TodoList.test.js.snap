@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo List Component capturing snapshot of component 1`] = `
+<div>
+  <h3>
+    Todo List
+  </h3>
+  <input
+    className="btn__sort_txt"
+    onClick={[Function]}
+    type="button"
+    value="Сортировка по тексту"
+  />
+  <input
+    className="btn__sort_date"
+    onClick={[Function]}
+    type="button"
+    value="Сортировка по дате"
+  />
+  <input
+    className="btn__sort_reset"
+    onClick={[Function]}
+    type="button"
+    value="Сброс сортировки"
+  />
+  <ul>
+    <li>
+      <input
+        checked=""
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <span
+        className="task"
+      >
+        Текст: 
+        finished iting
+         Дата: 
+        22.02.2003
+      </span>
+      <input
+        onClick={[Function]}
+        type="button"
+        value="Удалить"
+      />
+    </li>
+    <li>
+      <input
+        checked=""
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <span
+        className="task"
+      >
+        Текст: 
+        create store
+         Дата: 
+        22.02.2004
+      </span>
+      <input
+        onClick={[Function]}
+        type="button"
+        value="Удалить"
+      />
+    </li>
+  </ul>
+</div>
+`;

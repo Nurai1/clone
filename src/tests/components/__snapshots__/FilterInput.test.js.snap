@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Input Component Unconnected Filter Input Component capturing snapshot of component 1`] = `
+<form
+  className="filterForm"
+>
+  <h3>
+    Найдите нужные дела
+  </h3>
+  <label
+    htmlFor=""
+  >
+    Фильтр по тексту:
+    <input
+      onChange={[Function]}
+      type="text"
+    />
+  </label>
+  <label
+    htmlFor=""
+  >
+    Фильтр по дате:
+    <input
+      onChange={[Function]}
+      type="date"
+    />
+  </label>
+</form>
+`;
