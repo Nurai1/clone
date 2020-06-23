@@ -30,3 +30,19 @@ while(numderIsCool){
 
 getAnswers(["https://api.github.com/users/Nurai1", "https://api.github.com/users/king", "https://api.github.com/users/ruby"], 2, console.log);
 
+// new Promise(function(resolve){
+//    foo(resolve);
+// })
+// .then((val) => {
+//    console.log(val);
+//    return new Promise(function(resolve){
+//      bar(resolve);
+//    })
+//    .then(val => {
+//      console.log(val);
+//      return new Promise(function(resolve){
+//        baz(resolve);
+//      })
+//      .then(val => console.log(val))
+//    })
+// });
