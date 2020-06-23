@@ -1,1 +1,45 @@
-123
+function getAnswers(urls, limit, callback) {
+  let currentUrls = [];
+  let currentUrlsNumber = 0;
+  while(currentUrlsNumber < limit){
+    if (!urls[currentUrlsNumber]){
+      break;
+    }
+    currentUrls.push(urls[currentUrlsNumber]);
+    currentUrlsNumber++;
+  }
+  let currentRequests = currentUrls.map(val => fetch(val));
+  Promise.all(currentRequests).then(
+    responses => Promise.all(
+      responses.map(response => response.json())
+    ).then(
+      answers => {
+        callback(answers);
+        let nextUrls = urls.slice(limit);
+        if (nextUrls.length > 0) {
+          getAnswers(nextUrls, limit, callback);
+        }
+      }
+    )
+  );
+}
+
+getAnswers(["https://api.github.com/users/Nurai1", "https://api.github.com/users/king", "https://api.github.com/users/ruby"], 2, console.log);
+
+
+// new Promise(function(resolve){
+//    foo(resolve);
+// })
+// .then((val) => {
+//    console.log(val);
+//    return new Promise(function(resolve){
+//      bar(resolve);
+//    })
+//    .then(val => {
+//      console.log(val);
+//      return new Promise(function(resolve){
+//        baz(resolve);
+//      })
+//      .then(val => console.log(val))
+//    })
+// });
