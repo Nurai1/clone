@@ -1,1 +1,2 @@
-rebase me
+rebase me and some another text
+
